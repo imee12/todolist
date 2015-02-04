@@ -1,0 +1,29 @@
+.form-control {
+
+  margin: 0px, 0px, 0px, 200px;
+  width: 800px;
+  height: 100px;
+  line: 2px black;
+
+
+}
+
+h1 {
+
+  font-size: 45px;
+  text-align: center;
+}
+
+
+body {
+  position: absolute;
+}
+
+section {
+  line: 2px black;
+  position: relative;
+  left: 200px;
+  top: 100px;
+  width: 200px;
+  height: 200px;
+}
