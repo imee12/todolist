@@ -1,23 +1,82 @@
-var todoPage = {
+var completed =[];
+var active = [];
 
-init: function() {
-  todoPage.initStyling();
-  todoPage.initEvents();
 
+$(document).ready(function () {
+  things.init();
+
+
+});
+
+
+var things = {
+
+  init: function() {
+    things.initStyling();
+    things.initEvents();
+  },
+
+  initStyling: function(){
+
+  },
+
+  initEvents: function () {
+  //When press enter it will add to active & data list
+    console.log("you inited events")
+    $("input").keypress(function(event){
+      if(event.which ==13){
+        event.preventDefault();
+        var thingId = $(this).data('thingid');
+        var newThing = {
+          title: $('input[name=title]').val(),
+        };
+
+      things.createThing(newThing);
+      active.push(newThing);
+      }
+    });
+
+//Will add to completed list and have a smiley face next to it
+
+    $('#popup').click(function(event) {
+      closest('article').prepend('<img  src="smiley.png">');
+      completed.push(thing);
+
+    });
+
+
+  //When click will show all to do things
+  $('section').on('click', '.showtodo', function (event) {
+        event.preventDefault();
+        things.renderThings();
+      });
+
+//When click will show all active things using active array
+
+  $('section').on('click', '.showtodoactive', function (event){
+    event.preventDefault();
+    console.log("You pressed me!")
+    things.renderThings(active);
+  });
 
 },
 
-initStyling: function(){
-  todo.renderThings();
-
-},
-
-initEvents: function () {
+//When click will show completed things
 
 
 
 
-},
+
+
+
+//When click will clear completed
+
+
+
+//When click will put smiley face and cross out
+
+
+
 
 
 config: {
@@ -26,23 +85,20 @@ config: {
 
 },
 
-render: function (data, tmpl,$el){
-  var template = _.template(data, tmpl);
-  $el.append(template);
-
-
-},
 
 renderThings: function () {
+  console.log("Hi there!");
   $.ajax({
-    url: todo.config.url,
+    url: things.config.url,
+
     type: 'GET',
-    success: function (things)
+    success: function (things) {
     console.log(things);
-    var template = _.template('#thingTmpl').html());
+    var rendertemplate = _.template(template.thingTmpl);
     var markup = "";
-    things.forEach(function(item,index, array){
-      markup += template(item);
+    _.each(things, function(item, index, array){
+      console.log(item);
+      markup += rendertemplate(item);
 
     });
       console.log('markup is..', markup);
@@ -54,18 +110,18 @@ renderThings: function () {
   }
 });
 
+},
 
 
-
-createThing: function (thing){
+createThing: function (newThing){
 
     $.ajax({
-      url: todo.config.url,
-      data: thing,
+      url: things.config.url,
+      data: newThing,
       type: 'POST',
       success: function (data) {
         console.log(data);
-        todo.renderThings();
+        things.renderThings();
       },
       error: function (error) {
         console.log(error);
@@ -79,11 +135,11 @@ createThing: function (thing){
 deleteThing: function (id) {
 
   $.ajax({
-      url: todo.config.url + '/' + id,
+      url: things.config.url + '/' + id,
       type: 'DELETE',
       success: function (data) {
         console.log(data);
-        todo.renderBooks();
+        // things.renderBooks();
       },
       error: function (err) {
         console.log(err);
@@ -91,15 +147,15 @@ deleteThing: function (id) {
     });
 },
 
-updateBook: function (id, thing) {
+updateThing: function (id, thing) {
 
     $.ajax({
-      url: todo.config.url + '/' + id,
+      url: things.config.url + '/' + id,
       data: thing,
       type: 'PUT',
       success: function (data) {
         console.log(data);
-        todo.renderBooks();
+        things.renderBooks();
       },
       error: function (err) {
         console.log(err);
@@ -108,15 +164,4 @@ updateBook: function (id, thing) {
 
 
   },
-},
-
-
-
-
-
-
-
-$(document).ready(function () {
-  todoPage.init();
-
-});
+};

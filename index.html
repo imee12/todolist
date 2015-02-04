@@ -5,34 +5,40 @@
   <title>To Do List</title>
   <link rel="stylesheet" href="index.css">
 
-  <script type="html/template" id="thingTmpl">
-    <article data-thingid="<%= _id %>">
 
-      <h3><%= title%></h3>
-
-    
-    </article>
-  </script>
 </head>
 <body>
   <header>
     <h1>To Do or Not to Do</h1>
     </header>
-<div class="container">
-    <section class="list">
-         <form id="createBook" action="">
+
+
+    <section>This is the list
+
+
+        <article>
+        <h3></h3>
+
+        </article>
+        <form id="createBook" action="">
            <div class="form-group">
-             <input type="text" class="form-control" name="newTitle">
+             <input type="text" class="form-control" name="title" value="">
            </div>
+           <div class="popup" style="display: none">Completed?</div>
 
-           <button class="showtodo">All</button> | <button class="showtodoactive">Active</button> | <button class="showtodocompleted">Completed</button> | <button class="clearcompleted">CLEAR COMPLETED</button>
-                </form>
+          <button class="showtodo">All</button> |
+          <button class="showtodoactive">Active</button> |
+          <button class="showtodocompleted">Completed</button> |
+          <button class="clearcompleted">CLEAR COMPLETED</button>
+        </form>
                 <div class=thingsleft>blah</div>
-              </section
 
+  </section>
 
   <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/underscore/underscore.js"></script>
+
+    <script src="template.js"></script>
     <script src="main.js"></script>
 </body>
 </html>

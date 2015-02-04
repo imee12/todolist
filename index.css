@@ -26,4 +26,15 @@ section {
   top: 100px;
   width: 200px;
   height: 200px;
+  font-size: 25px;
+
+}
+
+.article .popup {
+  display: none;
+}
+
+.article:hover .popup {
+
+  display: block;
 }
