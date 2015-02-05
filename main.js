@@ -5,7 +5,6 @@ var active = [];
 $(document).ready(function () {
   things.init();
 
-
 });
 
 
@@ -14,9 +13,11 @@ var things = {
   init: function() {
     things.initStyling();
     things.initEvents();
+
   },
 
   initStyling: function(){
+      things.thingsLeft();
 },
 
   initEvents: function () {
@@ -247,9 +248,30 @@ updateThing: function (id, thing) {
 
   },
 
-thingsLeft: function (things) {
-  var length= things.left;
-  $('.thingsleft').append("<span> length </span>");
+thingsLeft: function (data) {
+  $.ajax({
+    url: things.config.url,
+   //data: things,
+    type: 'POST',
+    success: function (data) {
+    //  console.log(data);
+
+      _.each(data, function(item, index, array){
+        console.log(item.length);
+        var length = (item.length);
+        $('.thingsleft').append(length);
+
+      });
+
+
+    },
+    error: function (error) {
+      console.log(error);
+    }
+
+  });
+
+
 
 
 }
