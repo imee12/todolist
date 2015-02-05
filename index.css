@@ -15,26 +15,32 @@ h1 {
 }
 
 
-body {
-  position: absolute;
-}
 
 section {
   line: 2px black;
-  position: relative;
-  left: 200px;
+
   top: 100px;
   width: 200px;
   height: 200px;
-  font-size: 25px;
+  font-size: 20px;
 
 }
 
-.article .popup {
+.list {
+
+  width: 300px;
+  margin: 100px;
+}
+
+.popover {
   display: none;
+  width: 20px;
 }
 
-.article:hover .popup {
+a {
+  width: 15px;
+}
 
-  display: block;
+img {
+  width: 15px;
 }

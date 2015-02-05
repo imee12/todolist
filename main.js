@@ -36,11 +36,27 @@ var things = {
       }
     });
 
+
+//test hover
+
+//$(".list").mouseover(function(event){
+  //  $(this).addClass("popover");
+
+//});
+
+
+
+
+
+
 //Will add to completed list and have a smiley face next to it
 
-    $('#popup').click(function(event) {
-      closest('article').prepend('<img  src="smiley.png">');
-      completed.push(thing);
+    $('section').on('click', '.completed', function(event) {
+      event.preventDefault();
+      $(this).closest('.item').prepend('<img src="smiley.png" style ="display": "inline-block">');
+
+      console.log("pressed completed");
+
 
     });
 
@@ -59,10 +75,17 @@ var things = {
     things.renderThings(active);
   });
 
-},
+
 
 //When click will show completed things
 
+$('section').on('click', '.showtodocompleted', function (event){
+  event.preventDefault();
+  console.log("You pressed me complete!")
+  things.renderCompleteThings();
+});
+
+},
 
 
 
@@ -102,7 +125,7 @@ renderThings: function () {
 
     });
       console.log('markup is..', markup);
-      $('section').html(markup);
+      $('.list').html(markup);
 
 },
   error: function (error) {
@@ -111,6 +134,33 @@ renderThings: function () {
 });
 
 },
+
+renderCompleteThings: function () {
+  console.log("Hi there!");
+  $.ajax({
+    url: things.config.url,
+
+    type: 'GET',
+    success: function (completed) {
+    console.log(completed);
+    var rendertemplate = _.template(template.thingTmpl);
+    var markup = "";
+    _.each(things, function(item, index, array){
+      console.log(item);
+      markup += rendertemplate(item);
+
+    });
+      console.log('markup is..', markup);
+      $('.list').html(markup);
+
+},
+  error: function (error) {
+    console.log(error);
+  }
+});
+
+},
+
 
 
 createThing: function (newThing){
