@@ -1,4 +1,4 @@
-var completed =[];
+var completed ={};
 var active = [];
 
 
@@ -32,31 +32,20 @@ var things = {
         };
 
       things.createThing(newThing);
-      active.push(newThing);
+
       }
     });
 
 
-//test hover
 
-//$(".list").mouseover(function(event){
-  //  $(this).addClass("popover");
-
-//});
-
-
-
-
-
-
-//Will add to completed list and have a smiley face next to it
+//Will add a smiley face to item
 
     $('section').on('click', '.completed', function(event) {
       event.preventDefault();
       $(this).closest('.item').prepend('<img src="smiley.png" style ="display": "inline-block">');
 
       console.log("pressed completed");
-
+    //  things.completedThing();
 
     });
 
@@ -67,7 +56,7 @@ var things = {
         things.renderThings();
       });
 
-//When click will show all active things using active array
+//When click will show all active things
 
   $('section').on('click', '.showtodoactive', function (event){
     event.preventDefault();
@@ -85,7 +74,7 @@ $('section').on('click', '.showtodocompleted', function (event){
   things.renderCompleteThings();
 });
 
-},
+
 
 
 
@@ -96,9 +85,33 @@ $('section').on('click', '.showtodocompleted', function (event){
 
 
 
-//When click will put smiley face and cross out
+//When click will delete
+
+$('section').on('click', '.delete', function (event) {
+      event.preventDefault();
+       var thingId = $(this).closest('article').data('thingid');
+       console.log(thingId);
+       things.deleteThing(thingId);
+    });
 
 
+
+
+//When click will edit
+$('section').on('submit', '.edit', function (event) {
+      event.preventDefault();
+      var thingId = $(this).closest('article').data('thingid');
+      var editedThing = {
+        title: $(this).find('input[name="editTitle"]').val(),
+
+      };
+
+      things.updateThing(thingkId, editedThing);
+
+
+    });
+
+},
 
 
 
@@ -135,8 +148,9 @@ renderThings: function () {
 
 },
 
+//will show completed list of things
 renderCompleteThings: function () {
-  console.log("Hi there!");
+  console.log("Hi there again!");
   $.ajax({
     url: things.config.url,
 
@@ -160,6 +174,24 @@ renderCompleteThings: function () {
 });
 
 },
+/// POST TO SERVER THAT IT IS COMPLETED
+
+completeThing: function() {
+  $.ajax({
+    url: things.config.url + '/' + id,
+    data: {'status': completed},
+    type: 'POST',
+    success: function (data) {
+    console.log(data);
+    //you need to append or add a value of completed to the completed thing
+
+},
+  error: function (error) {
+    console.log(error);
+  }
+});
+
+},
 
 
 
@@ -171,7 +203,7 @@ createThing: function (newThing){
       type: 'POST',
       success: function (data) {
         console.log(data);
-        things.renderThings();
+
       },
       error: function (error) {
         console.log(error);
@@ -189,7 +221,7 @@ deleteThing: function (id) {
       type: 'DELETE',
       success: function (data) {
         console.log(data);
-        // things.renderBooks();
+        things.renderThings();
       },
       error: function (err) {
         console.log(err);
@@ -205,7 +237,7 @@ updateThing: function (id, thing) {
       type: 'PUT',
       success: function (data) {
         console.log(data);
-        things.renderBooks();
+        things.renderThings();
       },
       error: function (err) {
         console.log(err);
