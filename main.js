@@ -17,8 +17,7 @@ var things = {
   },
 
   initStyling: function(){
-
-  },
+},
 
   initEvents: function () {
   //When press enter it will add to active & data list
@@ -130,6 +129,7 @@ renderThings: function () {
     type: 'GET',
     success: function (things) {
     console.log(things);
+
     var rendertemplate = _.template(template.thingTmpl);
     var markup = "";
     _.each(things, function(item, index, array){
@@ -139,7 +139,7 @@ renderThings: function () {
     });
       console.log('markup is..', markup);
       $('.list').html(markup);
-
+      things.thingsLeft();
 },
   error: function (error) {
     console.log(error);
@@ -246,4 +246,13 @@ updateThing: function (id, thing) {
 
 
   },
+
+thingsLeft: function (things) {
+  var length= things.left;
+  $('.thingsleft').append("<span> length </span>");
+
+
+}
+
+
 };
